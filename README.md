@@ -1,30 +1,11 @@
 
----
+## 🏗️ Architecture
 
-```markdown
-# 🏠 House Price Prediction — End-to-End ML Web App
+The application follows a client-server architecture:
 
-An end-to-end Machine Learning web application for predicting Indian real estate prices based on property features, location, and structural attributes.
-
----
-
-## 📌 Overview
-
-This repository contains a full-stack ML solution featuring a **FastAPI** REST backend and a **React + TypeScript** frontend. The core model is a **Random Forest Regressor** trained inside a scikit-learn preprocessing pipeline, capable of serving real-time price estimates based on user inputs.
-
----
-
-## 🏗️ Architecture Diagram
-
-```mermaid
-graph LR
-    A[React Frontend] -->|HTTP POST /predict| B[FastAPI Server]
-    B -->|Loads| C[Random Forest Pipeline]
-    C -->|Returns Prediction| B
-    B -->|JSON Response| A
-```
-
----
+- **React Frontend** sends user input to the backend via HTTP POST request to `/api/v1/predict`
+- **FastAPI Backend** receives the request, loads the pre-trained machine learning pipeline, and returns a JSON response with the predicted price.
+- The **Random Forest Regressor** pipeline is serialized using `joblib` and loaded at server startup for fast inference.
 
 ## 🛠️ Tech Stack
 
@@ -160,4 +141,3 @@ curl -X POST "http://localhost:8000/api/v1/predict" \
 
 ---
 
-## 📌 **حطي الكود ده في `README.md` وارفعيه**
