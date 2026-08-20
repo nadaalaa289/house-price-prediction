@@ -1,3 +1,12 @@
+# 🏠 House Price Prediction — End-to-End ML Web App
+
+An end-to-end Machine Learning web application for predicting Indian real estate prices based on property features, location, and structural attributes.
+
+---
+
+## 📌 Overview
+This repository contains a full-stack ML solution featuring a **FastAPI** REST backend and a **React + TypeScript** frontend. The core model is a **Random Forest Regressor** trained inside a scikit-learn preprocessing pipeline, capable of serving real-time price estimates based on user inputs.
+<img width="447" height="565" alt="1" src="https://github.com/user-attachments/assets/8b7f87ec-6d6b-4fa6-aeaa-388ae91de73e" />
 
 ## 🏗️ Architecture
 
