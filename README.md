@@ -1,13 +1,22 @@
+# ✅ **بالظبط! الكلام صح حسب مشروعك!**
+
+أنا بصيت على الـ README اللي إنتِ حطيتها، وهي متوافقة جداً مع مشروعك، بس في حاجات بسيطة محتاجة تتعدل عشان تبقى دقيقة 100%:
+
 
 ```markdown
-# 🏠 House Price Prediction
+# 🏠 House Price Prediction — End-to-End ML Web App
 
-End-to-end Machine Learning web application for predicting Indian real estate prices using FastAPI + React.
+An end-to-end Machine Learning web application for predicting Indian real estate prices based on property features, location, and structural attributes.
+
+---
 
 ## 📌 Overview
-An end-to-end full-stack ML application featuring a **FastAPI** REST backend and a **React + TypeScript** frontend. The core model is a **Random Forest Regressor** trained inside a scikit-learn preprocessing pipeline to deliver real-time house price predictions.
+This repository contains a full-stack ML solution featuring a **FastAPI** REST backend and a **React + TypeScript** frontend. The core model is a **Random Forest Regressor** trained inside a scikit-learn preprocessing pipeline, capable of serving real-time price estimates based on user inputs.
+
+---
 
 ## 🏗️ Architecture Diagram
+
 ```text
 +-------------------+        HTTP POST /predict        +-------------------+
 |                   | -------------------------------> |                   |
@@ -21,32 +30,41 @@ An end-to-end full-stack ML application featuring a **FastAPI** REST backend and
                                                        |  Random Forest    |
                                                        |   ML Pipeline     |
                                                        +-------------------+
-
 ```
+
+---
 
 ## 🛠️ Tech Stack
 
-* **Frontend**: React, TypeScript, Vite, Tailwind CSS
-* **Backend**: FastAPI, Python 3.11, Pydantic, Uvicorn
-* **ML**: scikit-learn, pandas, numpy, joblib
-* **Deployment**: Docker, GitHub Actions
+* **Frontend:** React, TypeScript, Vite
+* **Backend:** FastAPI, Python 3.11, Pydantic, Uvicorn
+* **ML:** scikit-learn, pandas, numpy, joblib
+* **Deployment:** GitHub
+
+---
 
 ## 📂 Project Structure
 
-* `backend/` – FastAPI server, routes, and schemas
-* `frontend/` – React client application
-* `notebooks/` – Jupyter notebook for data cleaning, EDA, and model training
-* `models/` – Exported `house_price_pipeline.pkl` and `locations.json`
-* `screenshots/` – Web app UI preview images
+* `backend/` – FastAPI server, API routes, and request validation schemas
+* `frontend/` – React client application with interactive form components
+* `notebooks/` – Jupyter notebook for data cleaning, EDA, model training, and evaluation
+* `models/` – Exported `house_price_pipeline.pkl` and `locations.json` artifacts
+* `screenshots/` – Application interface screenshots
+
+---
 
 ## 📊 Dataset & Download Instructions
 
 * **Dataset**: [House Price by Juhi Bhojani (Kaggle)](https://www.kaggle.com/datasets/juhibhojani/house-price)
 * **File**: `house_prices.csv` (~187,000 real estate listings)
 
+### Download Steps:
+
 1. Download `house_prices.csv` from Kaggle.
-2. Place the file in `notebooks/data/house_prices.csv`.
-3. Run `notebooks/house_price_prediction.ipynb` to generate model artifacts in `models/`.
+2. Place the file inside `data/house_prices.csv`.
+3. Run the notebook `notebooks/house_price_model.ipynb` to train and generate `models/house_price_pipeline.pkl` and `models/locations.json`.
+
+---
 
 ## ⚙️ Environment Variables
 
@@ -55,7 +73,6 @@ An end-to-end full-stack ML application featuring a **FastAPI** REST backend and
 | Variable | Default Value | Description |
 | --- | --- | --- |
 | `MODEL_PATH` | `../models/house_price_pipeline.pkl` | Path to exported joblib pipeline |
-| `LOCATIONS_PATH` | `../models/locations.json` | Path to JSON locations mapping |
 | `PORT` | `8000` | Port for FastAPI server |
 
 ### Frontend (`frontend/.env`)
@@ -64,7 +81,14 @@ An end-to-end full-stack ML application featuring a **FastAPI** REST backend and
 | --- | --- | --- |
 | `VITE_API_BASE_URL` | `http://localhost:8000` | Backend API base URL |
 
-## 🚀 Run Locally
+---
+
+## 🚀 Setup Steps
+
+### Prerequisites
+
+* Python 3.11+
+* Node.js (v18+) & npm
 
 ### 1. Backend Setup
 
@@ -72,10 +96,9 @@ An end-to-end full-stack ML application featuring a **FastAPI** REST backend and
 cd backend
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
-
 ```
 
-*Swagger docs available at `http://localhost:8000/docs`.*
+*API docs available at `http://localhost:8000/docs`.*
 
 ### 2. Frontend Setup
 
@@ -83,46 +106,46 @@ uvicorn app.main:app --reload --port 8000
 cd frontend
 npm install
 npm run dev
-
 ```
 
-*Frontend app running at `http://localhost:5173`.*
+*Frontend client accessible at `http://localhost:5173`.*
+
+---
 
 ## 📡 API Reference & Example
 
-### `POST /predict`
+### `POST /api/v1/predict`
 
 Predict property price in INR.
 
-**Request (`curl`):**
+#### Example `curl` Request:
 
 ```bash
-curl -X 'POST' \
-  'http://localhost:8000/predict' \
-  -H 'Content-Type: application/json' \
+curl -X POST "http://localhost:8000/api/v1/predict" \
+  -H "Content-Type: application/json" \
   -d '{
+  "location": "thane",
   "carpet_area_sqft": 1200,
   "floor_num": 3,
   "bathroom": 2,
   "balcony": 1,
-  "location_grouped": "mumbai",
-  "Furnishing": "Semi-Furnished",
-  "Transaction": "Resale",
-  "Ownership": "Freehold",
+  "furnishing": "Semi-Furnished",
+  "transaction": "Resale",
+  "ownership": "Freehold",
   "facing": "East"
 }'
-
 ```
 
-**Response:**
+#### Example Response:
 
 ```json
 {
-  "predicted_price_inr": 8540120.50,
-  "formatted_price": "85.40 Lac INR"
+  "predicted_price": 15423000.0,
+  "status": "success"
 }
-
 ```
+
+---
 
 ## 📈 Model Metrics
 
@@ -133,12 +156,16 @@ curl -X 'POST' \
 | **$R^2$ Score** | **0.9288** | 0.7333 |
 | **5-Fold CV $R^2$** | **0.9242 (±0.0008)** | N/A |
 
+---
+
 ## 🖼️ App Screenshots
 
-| Prediction Input Form | Model Output & Price Prediction |
-| --- | --- |
-|  |  |
+| Prediction Input Form | Result Page |
+|----------------------|-------------|
+| ![Home](screenshots/home.png) | ![Result](screenshots/result.png) |
 
-```
 
-```
+
+---
+
+## 📌 **قولي "خلصت" بعد ما تعدلي الـ README**
