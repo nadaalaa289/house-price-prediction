@@ -1,16 +1,13 @@
-# 🏠 House Price Prediction — End-to-End ML Web App
 
-An end-to-end Machine Learning web application for predicting Indian real estate prices based on property features, location, and structural attributes.
+```markdown
+# 🏠 House Price Prediction
 
----
+End-to-end Machine Learning web application for predicting Indian real estate prices using FastAPI + React.
 
 ## 📌 Overview
-This repository contains a full-stack ML solution featuring a **FastAPI** REST backend and a **React + TypeScript** frontend. The core model is a **Random Forest Regressor** trained inside a scikit-learn preprocessing pipeline, capable of serving real-time price estimates based on user inputs.
-
----
+An end-to-end full-stack ML application featuring a **FastAPI** REST backend and a **React + TypeScript** frontend. The core model is a **Random Forest Regressor** trained inside a scikit-learn preprocessing pipeline to deliver real-time house price predictions.
 
 ## 🏗️ Architecture Diagram
-
 ```text
 +-------------------+        HTTP POST /predict        +-------------------+
 |                   | -------------------------------> |                   |
@@ -24,13 +21,83 @@ This repository contains a full-stack ML solution featuring a **FastAPI** REST b
                                                        |  Random Forest    |
                                                        |   ML Pipeline     |
                                                        +-------------------+
-🛠️ Tech StackFrontend: React, TypeScript, Vite, Tailwind CSSBackend: FastAPI, Python 3.11, Pydantic, UvicornML: scikit-learn, pandas, numpy, joblibDeployment: Docker, GitHub Actions📂 Project Structurebackend/ – FastAPI server, API routes, and request validation schemasfrontend/ – React client application with interactive form componentsnotebooks/ – Jupyter notebook for data cleaning, EDA, model training, and evaluationmodels/ – Exported house_price_pipeline.pkl and locations.json artifactsscreenshots/ – Application interface screenshots📊 Dataset & Download InstructionsDataset: House Price by Juhi Bhojani (Kaggle)File: house_prices.csv (~187,000 real estate listings)Download Steps:Download house_prices.csv from Kaggle.Place the file inside notebooks/data/house_prices.csv.Run the notebook notebooks/house_price_prediction.ipynb to train and generate models/house_price_pipeline.pkl and models/locations.json.⚙️ Environment VariablesBackend (backend/.env)VariableDefault ValueDescriptionMODEL_PATH../models/house_price_pipeline.pklPath to exported joblib pipelineLOCATIONS_PATH../models/locations.jsonPath to JSON locations mappingPORT8000Port for FastAPI serverFrontend (frontend/.env)VariableDefault ValueDescriptionVITE_API_BASE_URLhttp://localhost:8000Backend API base URL🚀 Setup StepsPrerequisitesPython 3.11+Node.js (v18+) & npm1. Backend SetupBashcd backend
+
+```
+
+## 🛠️ Tech Stack
+
+* **Frontend**: React, TypeScript, Vite, Tailwind CSS
+* **Backend**: FastAPI, Python 3.11, Pydantic, Uvicorn
+* **ML**: scikit-learn, pandas, numpy, joblib
+* **Deployment**: Docker, GitHub Actions
+
+## 📂 Project Structure
+
+* `backend/` – FastAPI server, routes, and schemas
+* `frontend/` – React client application
+* `notebooks/` – Jupyter notebook for data cleaning, EDA, and model training
+* `models/` – Exported `house_price_pipeline.pkl` and `locations.json`
+* `screenshots/` – Web app UI preview images
+
+## 📊 Dataset & Download Instructions
+
+* **Dataset**: [House Price by Juhi Bhojani (Kaggle)](https://www.kaggle.com/datasets/juhibhojani/house-price)
+* **File**: `house_prices.csv` (~187,000 real estate listings)
+
+1. Download `house_prices.csv` from Kaggle.
+2. Place the file in `notebooks/data/house_prices.csv`.
+3. Run `notebooks/house_price_prediction.ipynb` to generate model artifacts in `models/`.
+
+## ⚙️ Environment Variables
+
+### Backend (`backend/.env`)
+
+| Variable | Default Value | Description |
+| --- | --- | --- |
+| `MODEL_PATH` | `../models/house_price_pipeline.pkl` | Path to exported joblib pipeline |
+| `LOCATIONS_PATH` | `../models/locations.json` | Path to JSON locations mapping |
+| `PORT` | `8000` | Port for FastAPI server |
+
+### Frontend (`frontend/.env`)
+
+| Variable | Default Value | Description |
+| --- | --- | --- |
+| `VITE_API_BASE_URL` | `http://localhost:8000` | Backend API base URL |
+
+## 🚀 Run Locally
+
+### 1. Backend Setup
+
+```bash
+cd backend
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
-API docs available at http://localhost:8000/docs.2. Frontend SetupBashcd frontend
+
+```
+
+*Swagger docs available at `http://localhost:8000/docs`.*
+
+### 2. Frontend Setup
+
+```bash
+cd frontend
 npm install
 npm run dev
-Frontend client accessible at http://localhost:5173.📡 API Reference & ExamplePOST /predictPredict property price in INR.Example curl Request:Bashcurl -X 'POST' \
+
+```
+
+*Frontend app running at `http://localhost:5173`.*
+
+## 📡 API Reference & Example
+
+### `POST /predict`
+
+Predict property price in INR.
+
+**Request (`curl`):**
+
+```bash
+curl -X 'POST' \
   'http://localhost:8000/predict' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -44,8 +111,34 @@ Frontend client accessible at http://localhost:5173.📡 API Reference & Example
   "Ownership": "Freehold",
   "facing": "East"
 }'
-Example Response:JSON{
+
+```
+
+**Response:**
+
+```json
+{
   "predicted_price_inr": 8540120.50,
   "formatted_price": "85.40 Lac INR"
 }
-📈 Model MetricsMetricRandom Forest (Winning Model)Linear Regression (Baseline)MAE (INR)1,094,216.6651,117,316.95RMSE (INR)4,281,775.008,774,376,000.00$R^2$ Score0.92880.73335-Fold CV $R^2$0.9242 (±0.0008)N/A🖼️ App ScreenshotsPrediction Input FormModel Output & Price Prediction
+
+```
+
+## 📈 Model Metrics
+
+| Metric | Random Forest (Winning Model) | Linear Regression (Baseline) |
+| --- | --- | --- |
+| **MAE (INR)** | **1,094,216.66** | 51,117,316.95 |
+| **RMSE (INR)** | **4,281,775.00** | 8,774,376,000.00 |
+| **$R^2$ Score** | **0.9288** | 0.7333 |
+| **5-Fold CV $R^2$** | **0.9242 (±0.0008)** | N/A |
+
+## 🖼️ App Screenshots
+
+| Prediction Input Form | Model Output & Price Prediction |
+| --- | --- |
+|  |  |
+
+```
+
+```
