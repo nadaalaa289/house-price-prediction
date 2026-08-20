@@ -31,7 +31,7 @@ The application follows a client-server architecture:
 * `frontend/` – React client application with interactive form components
 * `notebooks/` – Jupyter notebook for data cleaning, EDA, model training, and evaluation
 * `models/` – Exported `house_price_pipeline.pkl` and `locations.json` artifacts
-* `screenshots/` – Application interface screenshots
+
 
 ---
 
