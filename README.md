@@ -1,7 +1,5 @@
-# ✅ **بالظبط! الكلام صح حسب مشروعك!**
 
-أنا بصيت على الـ README اللي إنتِ حطيتها، وهي متوافقة جداً مع مشروعك، بس في حاجات بسيطة محتاجة تتعدل عشان تبقى دقيقة 100%:
-
+---
 
 ```markdown
 # 🏠 House Price Prediction — End-to-End ML Web App
@@ -11,25 +9,19 @@ An end-to-end Machine Learning web application for predicting Indian real estate
 ---
 
 ## 📌 Overview
+
 This repository contains a full-stack ML solution featuring a **FastAPI** REST backend and a **React + TypeScript** frontend. The core model is a **Random Forest Regressor** trained inside a scikit-learn preprocessing pipeline, capable of serving real-time price estimates based on user inputs.
 
 ---
 
 ## 🏗️ Architecture Diagram
 
-```text
-+-------------------+        HTTP POST /predict        +-------------------+
-|                   | -------------------------------> |                   |
-|   React Frontend  |                                  |   FastAPI Server  |
-| (TypeScript/Vite) | <------------------------------- |  (Python 3.11)    |
-+-------------------+     JSON Response {price}        +-------------------+
-                                                                 |
-                                                       Loads joblib pipeline
-                                                                 v
-                                                       +-------------------+
-                                                       |  Random Forest    |
-                                                       |   ML Pipeline     |
-                                                       +-------------------+
+```mermaid
+graph LR
+    A[React Frontend] -->|HTTP POST /predict| B[FastAPI Server]
+    B -->|Loads| C[Random Forest Pipeline]
+    C -->|Returns Prediction| B
+    B -->|JSON Response| A
 ```
 
 ---
@@ -71,14 +63,14 @@ This repository contains a full-stack ML solution featuring a **FastAPI** REST b
 ### Backend (`backend/.env`)
 
 | Variable | Default Value | Description |
-| --- | --- | --- |
+|----------|---------------|-------------|
 | `MODEL_PATH` | `../models/house_price_pipeline.pkl` | Path to exported joblib pipeline |
 | `PORT` | `8000` | Port for FastAPI server |
 
 ### Frontend (`frontend/.env`)
 
 | Variable | Default Value | Description |
-| --- | --- | --- |
+|----------|---------------|-------------|
 | `VITE_API_BASE_URL` | `http://localhost:8000` | Backend API base URL |
 
 ---
@@ -150,7 +142,7 @@ curl -X POST "http://localhost:8000/api/v1/predict" \
 ## 📈 Model Metrics
 
 | Metric | Random Forest (Winning Model) | Linear Regression (Baseline) |
-| --- | --- | --- |
+|--------|-------------------------------|------------------------------|
 | **MAE (INR)** | **1,094,216.66** | 51,117,316.95 |
 | **RMSE (INR)** | **4,281,775.00** | 8,774,376,000.00 |
 | **$R^2$ Score** | **0.9288** | 0.7333 |
@@ -168,4 +160,4 @@ curl -X POST "http://localhost:8000/api/v1/predict" \
 
 ---
 
-## 📌 **قولي "خلصت" بعد ما تعدلي الـ README**
+## 📌 **حطي الكود ده في `README.md` وارفعيه**
